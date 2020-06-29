@@ -1,2 +1,3 @@
-game_compiled.js
-node_modules
+__pycach__
+tmp/*.*
+*.pyc
