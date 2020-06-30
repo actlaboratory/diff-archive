@@ -14,7 +14,7 @@ class ZipArchiver(ArchiverBase):
 			ArchiverBase.unpack(self, out_dir_path, archive_path)
 			shutil.make_archive(archive_path, "zip", out_dir_path)
 		except Exception as e:
-			raise Error(e.message)
+			raise Error(str(e))
 	#end except
 
 	def unpack(self, archive_path, out_dir_path):
@@ -25,6 +25,6 @@ class ZipArchiver(ArchiverBase):
 				archive.extractall(out_dir_path)
 			#end with
 		except Exception as e:
-			raise Error(e.message)
+			raise Error(str(e))
 		#end except
 	#end unpack
