@@ -5,15 +5,20 @@
 import glob
 import hashlib
 import os
+import shutil
+
+class Error(Exception): pass
 
 class Patcher():
 	"""MD5とSHA-1の二重ハッシュで比較するパッチャー。"""
-	def patch(self, base_path, out_path):
+	def patch(self, base_path, latest_path, out_path):
 		"""
-			base_pathを基準として、out_pathの内容を破壊的に変更してパッチを作ります。out_pathには、最新バージョンのアーカイブを展開したディレクトリを指定していると仮定します。パッチ結果を格納した辞書を返します。
+			base_pathを基準として、latest_path との差分をとって、　out_pathにパッチを作ります。latest_pathには、最新バージョンのアーカイブを展開したディレクトリを指定していると仮定します。パッチ結果を格納した辞書を返します。
 
 			:param base_path: ベースディレクトリのパス。
 			:type base_path: str
+			:param latest_path: 最新バージョンのパス
+			:type latest_path: str
 			:param out_path: 最終的にパッチとなるディレクトリのパス。このメソッド呼び出しで変更される。
 			:type out_path: str
 			:rtype: dict
@@ -21,6 +26,7 @@ class Patcher():
 		removed_files=0
 		removed_directories=0
 		base_set=self._getFiles(base_path)
+		shutil.copytree(latest_path, out_path)
 		out_set=self._getFiles(out_path)
 		contained_files=len(out_set)
 		for elem in base_set:

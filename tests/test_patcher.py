@@ -10,15 +10,15 @@ class TestPatcher(unittest.TestCase):
 	def test_patch(self):
 		self._makeData()
 		p=patcher.Patcher()
-		ret=p.patch("tmp/base", "tmp/patch")
+		ret=p.patch("tmp/base", "tmp/latest", "tmp/patch")
 		self.assertEqual(ret["contained_files"], ret["removed_files"])
 		self.assertEqual(ret["removed_directories"], 1)
 		self._cleanData()
 		self._makeData()
-		with open("tmp/patch/a.txt", "a") as f:
+		with open("tmp/latest/a.txt", "a") as f:
 			f.write("+++!")
 		#end with
-		ret=p.patch("tmp/base", "tmp/patch")
+		ret=p.patch("tmp/base", "tmp/latest", "tmp/patch")
 		self.assertEqual(ret["removed_files"], 1)
 		self._cleanData()
 
@@ -31,10 +31,11 @@ class TestPatcher(unittest.TestCase):
 		with open("tmp/base/sub/b.txt", "w") as f:
 			f.write("sub dir")
 		#end with
-		shutil.copytree("tmp/base", "tmp/patch")
+		shutil.copytree("tmp/base", "tmp/latest")
 
 	def _cleanData(self):
 		if os.path.isdir("tmp/base"): shutil.rmtree("tmp/base")
+		if os.path.isdir("tmp/latest"): shutil.rmtree("tmp/latest")
 		if os.path.isdir("tmp/patch"): shutil.rmtree("tmp/patch")
 
 
