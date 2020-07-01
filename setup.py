@@ -8,7 +8,7 @@ package_name = "diff_archiver"
 
 root_dir = path.abspath(path.dirname(__file__))
 
-with open(path.join(root_dir, '__init__.py')) as f:
+with open(path.join(root_dir, package_name, '__init__.py')) as f:
     init_text = f.read()
     version = re.search(r'__version__\s*=\s*[\'\"](.+?)[\'\"]', init_text).group(1)
     license = re.search(r'__license__\s*=\s*[\'\"](.+?)[\'\"]', init_text).group(1)
