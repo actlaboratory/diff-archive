@@ -4,10 +4,10 @@
 
 import time
 
-import archivers
-import loggers
-import resolver
-import patcher
+from . import archivers
+from . import loggers
+from . import resolver
+from . import patcher
 
 class Error(Exception): pass
 

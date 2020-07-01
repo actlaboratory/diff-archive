@@ -2,4 +2,4 @@
 # diff_archiver archiver initialization
 #Copyright (C) 2020 Yukio Nozawa <personal@nyanchangames.com>
 
-from archivers.zip import *
+from .zip import *

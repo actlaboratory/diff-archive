@@ -2,4 +2,4 @@
 # diff_archiver logger initialization
 #Copyright (C) 2020 Yukio Nozawa <personal@nyanchangames.com>
 
-from loggers.console import *
+from .console import *
