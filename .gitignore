@@ -1,5 +1,5 @@
 __pycach__
-tmp/*.*
+diff_archiver/tmp/*.*
 *.pyc
 patch.zip
 base
