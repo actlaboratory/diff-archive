@@ -11,7 +11,7 @@ class TestDiffArchiver(unittest.TestCase):
 		if os.path.exists("base"): shutil.rmtree("base")
 		if os.path.exists("latest"): shutil.rmtree("latest")
 		if os.path.exists("patch"): shutil.rmtree("patch")
-		archiver=diff_archiver.DiffArchiver("tests/data/base.zip", "tests/data/modified_patch.zip", "tmp/patch", logger=None)
+		archiver=diff_archiver.DiffArchiver("tests/data/base.zip", "tests/data/modified_latest.zip", "tmp/patch", logger=None)
 		archiver.work()
 		self.assertTrue(os.path.isfile("tmp/patch.zip"))
 		os.remove("tmp/patch.zip")
