@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from setuptools import setup, find_packages
+from setuptools import setup
 from os import path
 import re
 
@@ -35,7 +35,7 @@ setup(
     author=author,
     author_email=author_email,
 
-    packages=find_packages(where=package_name),
+    packages=[package_name],
 
     url=url,
 
