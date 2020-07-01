@@ -35,7 +35,7 @@ setup(
     author=author,
     author_email=author_email,
 
-    packages=[package_name],
+    packages=[package_name, "%s.archivers" % (package_name), "%s.loggers" % (package_name)],
 
     url=url,
 
