@@ -1,5 +1,0 @@
-setup.py
-diff_archiver.egg-info/PKG-INFO
-diff_archiver.egg-info/SOURCES.txt
-diff_archiver.egg-info/dependency_links.txt
-diff_archiver.egg-info/top_level.txt

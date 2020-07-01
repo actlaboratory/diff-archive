@@ -35,6 +35,8 @@ setup(
     author=author,
     author_email=author_email,
 
+    packages=find_packages(where=package_name),
+
     url=url,
 
     description='patch maker for actlaboratory',
