@@ -2,6 +2,7 @@
 # diff_archiver main implementation
 #Copyright (C) 2020 Yukio Nozawa <personal@nyanchangames.com>
 
+import shutil
 import time
 
 from . import archivers
@@ -13,7 +14,7 @@ class Error(Exception): pass
 
 class DiffArchiver():
 	"""DiffArchiver オブジェクトを使うと、ベースパッケージと最新パッケージとの間の差分を取得して、更新部分だけを入れたアーカイブを作ることができます。"""
-	def __init__(self,base_archive_path, latest_archive_path, diff_archive_path, archiver=archivers.ZipArchiver(), logger=loggers.ConsoleLogger()):
+	def __init__(self,base_archive_path, latest_archive_path, diff_archive_path, archiver=archivers.ZipArchiver(), logger=loggers.ConsoleLogger(), clean_base_package=False):
 		"""
 			必要な情報を指定して、処理の準備をします。
 			:param base_archive_path: ベースパッケージのパス(http/https から始まるとダウンロード)
@@ -26,12 +27,15 @@ class DiffArchiver():
 			:type archiver: archivers.ArchiverBase
 			:param logger: ロギング用オブジェクト(None でログ出力をオフにする)
 			:type logger: loggers.LoggerBase
+			:param clean_base_package: 処理終了後、ベースパッケージを削除するならTrue
+			:type clean_base_package: bool
 		"""
 		self.base_archive_path=base_archive_path
 		self.latest_archive_path=latest_archive_path
 		self.diff_archive_path=diff_archive_path
 		self.archiver=archiver
 		self.logger=logger
+		self.clean_base_package=clean_base_package
 
 	def work(self):
 		"""処理を実行する。"""
@@ -69,6 +73,12 @@ class DiffArchiver():
 			self._log("Failed to pack into diff archive(%s)" % e)
 		#end except
 		self._log("Packing done.")
+		self._log("Cleaning up unpacked resources.")
+		self._clean_unpacked_resources()
+		if self.clean_base_package:
+			self._log("Cleaning base package")
+			self._clean_base_package(base)
+		#end cleane base package
 		elapsed=time.time()-started
 		self._log("Operation completed in %.2f seconds." % elapsed)
 	#end work
@@ -77,3 +87,9 @@ class DiffArchiver():
 		if not self.logger: return
 		self.logger.log("diff_archiver: %s" % log_str)
 
+	def _clean_unpacked_resources(self):
+		shuti.rmtree("base")
+		shutil.rmtree("latest")
+
+	def clean_base_package(self, base):
+		os.remove(base)
