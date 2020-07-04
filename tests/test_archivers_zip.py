@@ -5,7 +5,7 @@ import shutil
 import unittest
 import zipfile
 
-import archivers
+import diff_archiver.archivers
 
 class TestZipArchiver(unittest.TestCase):
 	def test_pack(self):
@@ -15,7 +15,7 @@ class TestZipArchiver(unittest.TestCase):
 				f.write(str(i))
 			#end with
 		#end for
-		archiver=archivers.ZipArchiver()
+		archiver=diff_archiver.archivers.ZipArchiver()
 		archiver.pack("tmp/zip","tmp/myarchive")
 		self.assertTrue(os.path.exists("tmp/myarchive.zip"))
 		shutil.rmtree("tmp/zip")
@@ -29,7 +29,7 @@ class TestZipArchiver(unittest.TestCase):
 			new_zip.write("tmp/zip.txt",arcname="zip.txt")
 		#end with
 		os.remove("tmp/zip.txt")
-		archiver=archivers.ZipArchiver()
+		archiver=diff_archiver.archivers.ZipArchiver()
 		archiver.unpack("tmp/trytounpack.zip","tmp")
 		self.assertTrue(os.path.exists("tmp/zip.txt"))
 		os.remove("tmp/zip.txt")

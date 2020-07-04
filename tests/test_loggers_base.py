@@ -2,9 +2,9 @@
 
 import unittest
 
-import loggers
+import diff_archiver.loggers
 
 class TestLoggerBase(unittest.TestCase):
 	def test_log(self):
-		logger=loggers.LoggerBase()
+		logger=diff_archiver.loggers.LoggerBase()
 		self.assertTrue(logger.log)

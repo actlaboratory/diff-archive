@@ -2,6 +2,7 @@
 # diff_archiver main implementation
 #Copyright (C) 2020 Yukio Nozawa <personal@nyanchangames.com>
 
+import os
 import shutil
 import time
 
@@ -88,8 +89,8 @@ class DiffArchiver():
 		self.logger.log("diff_archiver: %s" % log_str)
 
 	def _clean_unpacked_resources(self):
-		shuti.rmtree("base")
+		shutil.rmtree("base")
 		shutil.rmtree("latest")
 
-	def clean_base_package(self, base):
+	def _clean_base_package(self, base):
 		os.remove(base)

@@ -4,12 +4,12 @@ import os
 import shutil
 import unittest
 
-import patcher
+import diff_archiver.patcher
 
 class TestPatcher(unittest.TestCase):
 	def test_patch(self):
 		self._makeData()
-		p=patcher.Patcher()
+		p=diff_archiver.patcher.Patcher()
 		ret=p.patch("tmp/base", "tmp/latest", "tmp/patch")
 		self.assertEqual(ret["contained_files"], ret["removed_files"])
 		self.assertEqual(ret["removed_directories"], 1)
