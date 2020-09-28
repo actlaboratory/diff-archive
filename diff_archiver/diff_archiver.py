@@ -15,7 +15,7 @@ class Error(Exception): pass
 
 class DiffArchiver():
 	"""DiffArchiver オブジェクトを使うと、ベースパッケージと最新パッケージとの間の差分を取得して、更新部分だけを入れたアーカイブを作ることができます。"""
-	def __init__(self,base_archive_path, latest_archive_path, diff_archive_path, archiver=archivers.ZipArchiver(), logger=loggers.ConsoleLogger(), clean_base_package=False):
+	def __init__(self,base_archive_path, latest_archive_path, diff_archive_path, archiver=archivers.ZipArchiver(), logger=loggers.ConsoleLogger(), clean_base_package=False, skip_root = False):
 		"""
 			必要な情報を指定して、処理の準備をします。
 			:param base_archive_path: ベースパッケージのパス(http/https から始まるとダウンロード)
@@ -30,6 +30,8 @@ class DiffArchiver():
 			:type logger: loggers.LoggerBase
 			:param clean_base_package: 処理終了後、ベースパッケージを削除するならTrue
 			:type clean_base_package: bool
+			:param skip_root: パッケージのルートディレクトリをスキップする。
+			:type skip_root: bool
 		"""
 		self.base_archive_path=base_archive_path
 		self.latest_archive_path=latest_archive_path
@@ -37,6 +39,7 @@ class DiffArchiver():
 		self.archiver=archiver
 		self.logger=logger
 		self.clean_base_package=clean_base_package
+		self.skip_root = skip_root
 
 	def work(self):
 		"""処理を実行する。"""
@@ -68,8 +71,11 @@ class DiffArchiver():
 		self._log(str(ret))
 		self._log("Patch done.")
 		self._log("Packing into diff archive...")
+		out_dir_path = "patch"
+		if self.skip_root:
+			out_dir_path = os.path.join("patch", os.listdir("patch")[0])
 		try:
-			self.archiver.pack("patch", self.diff_archive_path)
+			self.archiver.pack(out_dir_path, self.diff_archive_path)
 		except archivers.Error as e:
 			self._log("Failed to pack into diff archive(%s)" % e)
 		#end except
