@@ -16,7 +16,7 @@ python -m unittest discover tests
 
 # バージョンを上げる方法
 
-- diff_archiver/**init**,py にある version の値を編集。
+- diff_archiver/__init__.py にある version の値を編集。
 - バージョン番号の付け方は、 [Semantic Versioning](https://semver.org/) に従うこと。
 - v(major).(minor).(patch)でリリースタグを切る
 - 前回バージョンからの PR を見て更新内容を書き、リリース。
